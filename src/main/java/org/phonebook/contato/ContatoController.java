@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/contato")
 public class ContatoController {
 
@@ -56,6 +57,11 @@ public class ContatoController {
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id){
         contatoService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @PatchMapping("/undelete/{id}")
+    public ResponseEntity<Void> undeleteById(@PathVariable("id") Integer id){
+        contatoService.undeleteById(id);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -2,9 +2,10 @@ package org.phonebook.contato;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Data
 @Entity
@@ -37,13 +38,16 @@ public class Contato {
     @Column(name = "contato_sn_deletado")
     private String deletado = "0";
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @CreationTimestamp
     @Column(name = "contato_dh_ins")
     private LocalDateTime inserted_at;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "contato_dh_upd")
     private LocalDateTime updated_at;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "contato_dh_del")
     private LocalDateTime deleted_at;
 

@@ -44,8 +44,7 @@ public class ContatoService {
     public void favoriteById(Integer id){
         LocalDateTime updatedAt = LocalDateTime.now();
         contatoRepository.findById(id).ifPresent(contato -> {
-            String favorito = contato.getFavorito();
-            if(favorito.equals("0")) {
+            if(contato.getFavorito().equals("0")) {
                 contatoRepository.favoriteById(id, updatedAt);
             } else {
                 contatoRepository.disFavoriteById(id, updatedAt);
@@ -56,8 +55,7 @@ public class ContatoService {
     public void activeById(Integer id){
         LocalDateTime updatedAt = LocalDateTime.now();
         contatoRepository.findById(id).ifPresent(contato -> {
-            String ativo = contato.getAtivo();
-            if(ativo.equals("0")) {
+            if(contato.getAtivo().equals("0")) {
                 contatoRepository.activeById(id, updatedAt);
             } else {
                 contatoRepository.inactiveById(id, updatedAt);
@@ -70,10 +68,6 @@ public class ContatoService {
         contatos.addAll(contatoRepository.findByCelular(contato.getCelular()));
         if(!contatos.isEmpty()) {
             throw new RuntimeException("Celular já cadastrado.");
-        }
-        contatos.addAll(contatoRepository.findByTelefone(contato.getTelefone()));
-        if(!contatos.isEmpty()) {
-            throw new RuntimeException("Telefone já cadastrado.");
         }
         contatos.addAll(contatoRepository.findByEmail(contato.getEmail()));
         if(!contatos.isEmpty()) {
@@ -96,6 +90,11 @@ public class ContatoService {
     public void delete(Integer id) {
         LocalDateTime deletedAt = LocalDateTime.now();
         contatoRepository.softDeleteById(id, deletedAt);
+    }
+
+    public void undeleteById(Integer id){
+        LocalDateTime updatedAt = LocalDateTime.now();
+        contatoRepository.undeleteById(id, updatedAt, null);
     }
 
 }

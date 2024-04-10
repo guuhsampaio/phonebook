@@ -61,4 +61,9 @@ public interface ContatoRepository extends JpaRepository<Contato, Integer> {
     @Query("UPDATE Contato c SET c.deletado = '1', c.deleted_at = :deletedAt WHERE c.id = :id")
     void softDeleteById(Integer id, LocalDateTime deletedAt);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Contato c SET c.deletado = '0', c.updated_at = :updatedAt, c.deleted_at = :deletedAt WHERE c.id = :id")
+    void undeleteById(Integer id,LocalDateTime updatedAt, LocalDateTime deletedAt);
+
 }
